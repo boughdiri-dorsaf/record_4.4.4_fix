@@ -3,7 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:record_4_4_4_fix/record.dart';
+import 'package:record_4_4_4_fix/record_4_4_4_fix.dart';
 
 import 'package:record_example/audio_player.dart';
 
