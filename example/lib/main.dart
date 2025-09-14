@@ -191,16 +191,13 @@ class _AudioRecorderState extends State<AudioRecorder>
 
   Widget _buildRecordStopControl() {
     late Icon icon;
-    late Color color;
     late Color backgroundColor;
 
     if (_recordState != RecordState.stop) {
       icon = const Icon(Icons.stop, color: Colors.white, size: 32);
-      color = Colors.red;
       backgroundColor = Colors.red;
     } else {
       icon = const Icon(Icons.mic, color: Colors.white, size: 32);
-      color = Colors.deepPurple;
       backgroundColor = Colors.deepPurple;
     }
 
@@ -218,7 +215,7 @@ class _AudioRecorderState extends State<AudioRecorder>
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: backgroundColor.withOpacity(0.3),
+                  color: backgroundColor.withValues(alpha: 0.3),
                   blurRadius: 20,
                   spreadRadius: 5,
                 ),
@@ -264,7 +261,7 @@ class _AudioRecorderState extends State<AudioRecorder>
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: backgroundColor.withOpacity(0.3),
+            color: backgroundColor.withValues(alpha: 0.3),
             blurRadius: 15,
             spreadRadius: 3,
           ),
@@ -291,7 +288,7 @@ class _AudioRecorderState extends State<AudioRecorder>
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -414,7 +411,7 @@ class WaveformPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.deepPurple.withOpacity(0.7)
+      ..color = Colors.deepPurple.withValues(alpha: 0.7)
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
 
@@ -424,7 +421,7 @@ class WaveformPainter extends CustomPainter {
     final waveHeight = normalizedAmplitude * size.height * 0.8;
 
     final path = Path();
-    final waveCount = 20;
+    const waveCount = 20;
     final waveWidth = size.width / waveCount;
 
     for (int i = 0; i < waveCount; i++) {

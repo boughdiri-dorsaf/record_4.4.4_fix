@@ -22,9 +22,9 @@ class AudioPlayer extends StatefulWidget {
   AudioPlayerState createState() => AudioPlayerState();
 }
 
-class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin {
+class AudioPlayerState extends State<AudioPlayer>
+    with TickerProviderStateMixin {
   static const double _controlSize = 80;
-  static const double _deleteBtnSize = 32;
 
   final _audioPlayer = ap.AudioPlayer();
   late StreamSubscription<void> _playerStateChangedSubscription;
@@ -38,12 +38,12 @@ class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin 
   @override
   void initState() {
     super.initState();
-    
+
     _pulseController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    
+
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
@@ -53,13 +53,13 @@ class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin 
       await stop();
       setState(() {});
     });
-    
+
     _positionChangedSubscription = _audioPlayer.onPositionChanged.listen(
       (position) => setState(() {
         _position = position;
       }),
     );
-    
+
     _durationChangedSubscription = _audioPlayer.onDurationChanged.listen(
       (duration) => setState(() {
         _duration = duration;
@@ -86,7 +86,7 @@ class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin 
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -123,15 +123,15 @@ class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin 
                   size: 24,
                 ),
                 style: IconButton.styleFrom(
-                  backgroundColor: Colors.red.withOpacity(0.1),
+                  backgroundColor: Colors.red.withValues(alpha: 0.1),
                   shape: const CircleBorder(),
                 ),
               ),
             ],
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // Control and Progress
           Row(
             children: [
@@ -140,9 +140,9 @@ class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin 
               Expanded(child: _buildProgressSection()),
             ],
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Time Display
           _buildTimeDisplay(),
         ],
@@ -166,7 +166,9 @@ class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin 
       animation: _pulseAnimation,
       builder: (context, child) {
         return Transform.scale(
-          scale: _audioPlayer.state == ap.PlayerState.playing ? _pulseAnimation.value : 1.0,
+          scale: _audioPlayer.state == ap.PlayerState.playing
+              ? _pulseAnimation.value
+              : 1.0,
           child: Container(
             width: _controlSize,
             height: _controlSize,
@@ -175,7 +177,7 @@ class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin 
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: backgroundColor.withOpacity(0.3),
+                  color: backgroundColor.withValues(alpha: 0.3),
                   blurRadius: 15,
                   spreadRadius: 3,
                 ),
@@ -225,7 +227,7 @@ class AudioPlayerState extends State<AudioPlayer> with TickerProviderStateMixin 
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
         activeTrackColor: Colors.deepPurple,
-        inactiveTrackColor: Colors.deepPurple.withOpacity(0.2),
+        inactiveTrackColor: Colors.deepPurple.withValues(alpha: 0.2),
         thumbColor: Colors.deepPurple,
         thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
         trackHeight: 4,
